@@ -67,3 +67,11 @@ identical(stress_shift_3dict, stress_shift_3dict_using_bind_reversed)
 ```
 
 Only one of the tables created is identical to the original one because, while the values are the same in all tables, in a variable of type "table" (here actually a type "list") the values are considered to be ordered, so two tables who have the same values in different orders are not considered to be identical even if the values the tables contain are the same. This does not matter in a statistical analysis since we are only interested in the actual values and not in the order in which they are presented.
+
+### Task D
+
+```{r}
+stress_shift_nouns_renamed <- dplyr::rename(dplyr::select(dplyr::filter(stressshift::stress_shift_unamb, Category == "Noun"), Word, Dict, Syllable), Syllable_Noun = Syllable)
+stress_shift_verbs_renamed <- dplyr::rename(dplyr::select(dplyr::filter(stressshift::stress_shift_unamb, Category == "Verb"), Word, Dict, Syllable), Syllable_Verb = Syllable)
+stress_shift_wide <- dplyr::inner_join(stress_shift_nouns_renamed, stress_shift_verbs_renamed)
+```

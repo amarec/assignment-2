@@ -5,8 +5,16 @@ date: "02/11/2018"
 output: html_document
 ---
 
+```{r}
+source("functions.R")
+```
+
 ## Exercise 1
 
+```{r, cache = T}
+iris_subset_1 <- iris[c(89:94, 108:112),]
+iris_subset_2 <- iris[88:114,]
+```
 
 ## Exercise 2
 

@@ -37,8 +37,9 @@ We can see that with such small datasets, adding even a little bit of data can p
 
 ## Exercise 2
 
+### Task A
 
-## Exercise 3
-
-
-## Exercise 4
+```{r}
+stress_shift_3dict <- dplyr::filter(stressshift::stress_shift_unamb, Dict %in% c("W1802", "J1917", "C1687"))
+print(length(stress_shift_3dict[[1]]))
+```

@@ -54,3 +54,16 @@ length(stress_shift_3dict[[1]])
 stress_shift_3dict_using_pipe <- stressshift::stress_shift_unamb %>% dplyr::filter(Dict %in% c("W1802", "J1917", "C1687"))
 identical(stress_shift_3dict, stress_shift_3dict_using_pipe)
 ```
+
+### Task C
+
+```{r}
+stress_shift_3dict_nouns <- dplyr::filter(stress_shift_3dict, Category == "Noun")
+stress_shift_3dict_verbs <- dplyr::filter(stress_shift_3dict, Category == "Verb")
+stress_shift_3dict_using_bind <- dplyr::bind_rows(stress_shift_3dict_nouns, stress_shift_3dict_verbs)
+stress_shift_3dict_using_bind_reversed <- dplyr::bind_rows(stress_shift_3dict_verbs, stress_shift_3dict_nouns)
+identical(stress_shift_3dict, stress_shift_3dict_using_bind)
+identical(stress_shift_3dict, stress_shift_3dict_using_bind_reversed)
+```
+
+Only one of the tables created is identical to the original one because, while the values are the same in all tables, in a variable of type "table" (here actually a type "list") the values are considered to be ordered, so two tables who have the same values in different orders are not considered to be identical even if the values the tables contain are the same. This does not matter in a statistical analysis since we are only interested in the actual values and not in the order in which they are presented.

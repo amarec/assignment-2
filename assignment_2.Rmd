@@ -14,7 +14,26 @@ source("functions.R")
 ```{r, cache = T}
 iris_subset_1 <- iris[c(89:94, 108:112),]
 iris_subset_2 <- iris[88:114,]
+
+permut_1 <- permutation_twogroups(iris_subset_1, "Sepal.Width", "Species", "versicolor",
+"virginica", difference_in_means)
+ggplot2::ggplot(tibble::as_tibble(permut_1["permuted"]), ggplot2::aes(permuted)) + ggplot2::geom_vline(ggplot2::aes(xintercept = permut_1[["observed"]])) + ggplot2::geom_histogram() + ggplot2::xlim(-0.7, 0.7)
+ts_p_value_1 <- two_sided_p_value(permut_1[[2]], permut_1[["observed"]])
+
+permut_2 <- permutation_twogroups(iris_subset_2, "Sepal.Width", "Species", "versicolor",
+"virginica", difference_in_means)
+ggplot2::ggplot(tibble::as_tibble(permut_2["permuted"]), ggplot2::aes(permuted)) + ggplot2::geom_vline(ggplot2::aes(xintercept = permut_2[["observed"]])) + ggplot2::geom_histogram() + ggplot2::xlim(-0.7, 0.7)
+ts_p_value_2 <- two_sided_p_value(permut_2[[2]], permut_2[["observed"]])
+
+print(ts_p_value_1)
+print(ts_p_value_2)
 ```
+
+The differences between the histograms and the positions observed test statistics are due to differences in the size of the subsets of the data and to differences in the values of the data themselves. The bigger subset gives us a histogram that is much closer to a smooth Gaussian than than the other one, which is flatter with more jagged edges.
+
+The two p-values are above 0.05 and thus are considered to be non-conclusive according to standard procedure, even if the p-value of the second subset is close to being significant. Here we can once again observe that a bigger dataset is more likely to yield significant results.
+
+We can see that with such small datasets, adding even a little bit of data can produce big changes in the shape and caracteristics of a distribution.
 
 ## Exercise 2
 

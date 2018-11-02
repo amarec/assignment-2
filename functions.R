@@ -72,3 +72,27 @@ permutation_twogroups <- function(d, var, grouping_var, group1, group2, statisti
                  permuted=permutation_statistics)
   return(result)
 }
+
+
+# Two-sided p-value from a statistical distribution.
+#
+# ARGUMENTS:
+# d: a list containing the statistical data
+# obs: the observed value of the statistic
+#
+# RETURN VALUE:
+# The two-sided p-value of obs considering d.
+#
+two_sided_p_value <- function(d, obs) {
+  size <- length(d) + 1
+  n_above <- 1
+  n_below <- 1
+  for (i in 1:length(d)) {
+    if (d[[i]] <= obs) {
+      n_below <- n_below + 1
+    } else if (d[[i]] >= obs) {
+      n_above <- n_above + 1
+    }
+  }
+  return (2 * min((n_below / size), (n_above / size)))
+}

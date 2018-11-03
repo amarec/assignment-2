@@ -98,3 +98,12 @@ length(stress_shift_byword[[1]])
 ```{r}
 ggplot2::ggplot(stress_shift_byword, ggplot2::aes(Noun_Percent_Syll_1, Verb_Percent_Syll_1)) + ggplot2::geom_point()
 ```
+
+### Task H
+
+```{r}
+stress_shift_wide_all <- dplyr::full_join(stress_shift_nouns_renamed, stress_shift_verbs_renamed)
+stress_shift_byword_all <- dplyr::summarize(dplyr::group_by(stress_shift_wide_all, Word),
+                                        Noun_Percent_Syll_1 = (sum(Syllable_Noun == "Syllable 1", na.rm = TRUE) / sum(is.na(Syllable_Noun) == FALSE, na.rm = TRUE)) * 100,
+                                        Verb_Percent_Syll_1 = (sum(Syllable_Verb == "Syllable 1", na.rm = TRUE) / sum(is.na(Syllable_Verb) == FALSE, na.rm = TRUE)) * 100)
+```

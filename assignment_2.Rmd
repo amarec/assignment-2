@@ -77,3 +77,9 @@ stress_shift_wide <- dplyr::inner_join(stress_shift_nouns_renamed, stress_shift_
 ```
 
 The table `stress_shift_wide` now contains, for every word in every dictionary, if the stress shift occurs on the first syllable or the second syllable depending on if the word is a noun or a verb. This table has less rows than the sum of the two original tables because the values from these tables have been combined ("inner_joined") by word (and dictionary), which took out the need for separate rows to differentiate between noun and verb. This also left out words that were only nouns or only verbs, for which part of the information was missing.
+
+### Task E
+
+```{r}
+ggplot2::ggplot(stressshift::stress_shift_unamb, ggplot2::aes(Category, fill = Syllable, stat = "identity")) + ggplot2::geom_bar(position = "dodge")
+ ```

@@ -82,4 +82,13 @@ The table `stress_shift_wide` now contains, for every word in every dictionary, 
 
 ```{r}
 ggplot2::ggplot(stressshift::stress_shift_unamb, ggplot2::aes(Category, fill = Syllable, stat = "identity")) + ggplot2::geom_bar(position = "dodge")
- ```
+```
+
+### Task F
+
+```{r}
+stress_shift_byword <- dplyr::summarize(dplyr::group_by(stress_shift_wide, Word),
+                                        Noun_Percent_Syll_1 = (sum(Syllable_Noun == "Syllable 1") / n()) * 100,
+                                        Verb_Percent_Syll_1 = (sum(Syllable_Verb == "Syllable 1") / n()) * 100)
+length(stress_shift_byword[[1]])
+```
